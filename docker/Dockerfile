@@ -50,7 +50,7 @@ FROM python:${PYTHON_VERSION}-slim-trixie
 
 LABEL org.opencontainers.image.title="olefied" \
       org.opencontainers.image.description="Pooled, timeout-guarded olefy (oletools-over-TCP) for high-throughput mail scanning" \
-      org.opencontainers.image.source="https://github.com/eilandert/rspamd-olefy" \
+      org.opencontainers.image.source="https://github.com/myguard-labs/rspamd-olefy" \
       org.opencontainers.image.authors="Thijs Eilander <eilander@myguard.nl>"
 
 # libmagic1: required by python-magic. netcat-openbsd: HEALTHCHECK PING (nc -N).
