@@ -11,7 +11,7 @@ on:
 
 jobs:
   lint-and-unit:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, builder02, docker]
     services:
       redis:
         image: redis:7-alpine
@@ -33,13 +33,17 @@ jobs:
         run: python tests/test_olefied.py
 
   image:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, builder02, docker]
     steps:
       - uses: actions/checkout@v4
       - name: build image (pull olefy.py + requirements fresh from upstream)
         run: docker build --build-arg CACHEBUST="${{ github.run_id }}-${{ github.run_attempt }}" -f docker/Dockerfile -t olefied:ci .
       - name: run container
         run: |
+          # Self-hosted runners are not ephemeral: a prior run's fixed-name
+          # container survives and blocks 'docker run --name olefied-ci'
+          # ("name already in use"). Remove any stale one first.
+          docker rm -f olefied-ci 2>/dev/null || true
           docker run -d --name olefied-ci \
             --tmpfs /tmp:rw,mode=1777 \
             -e OLEFIED_WORKERS=2 -p 127.0.0.1:10050:10050 olefied:ci
