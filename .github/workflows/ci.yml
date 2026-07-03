@@ -11,7 +11,7 @@ on:
 
 jobs:
   lint-and-unit:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, builder02, lxc]
     services:
       redis:
         image: redis:7-alpine
@@ -33,7 +33,7 @@ jobs:
         run: python tests/test_olefied.py
 
   image:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, builder02, docker]
     steps:
       - uses: actions/checkout@v4
       - name: build image (pull olefy.py + requirements fresh from upstream)
