@@ -11,7 +11,7 @@ on:
 
 jobs:
   lint-and-unit:
-    runs-on: [self-hosted, builder02, lxc]
+    runs-on: [self-hosted, builder02, docker]
     services:
       redis:
         image: redis:7-alpine
