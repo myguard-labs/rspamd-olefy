@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # Test double for olefy.py: speaks the same line protocol (PING -> PONG, else
 # read-until-EOF then reply-and-close) but with no oletools dependency, so the

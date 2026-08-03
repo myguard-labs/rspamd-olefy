@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # olefied — a concurrency + stability front-end for HeinleinSupport's olefy.
 #
@@ -203,8 +202,8 @@ class Cache:
         if self.r is not None:
             try:
                 await self.r.aclose()
-            except Exception:  # noqa: BLE001
-                pass
+            except Exception as exc:  # noqa: BLE001
+                log.debug("redis close failed (%s) — ignored", exc)
 
 
 class Worker:

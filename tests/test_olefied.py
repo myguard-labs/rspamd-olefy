@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # Dispatcher tests for olefyd.py. Uses tests/fake_olefy.py as the worker, so the
 # pool / timeout / backpressure / recycle logic is exercised deterministically
@@ -32,7 +31,7 @@ def req(port, payload, timeout=20):
     while True:
         try:
             c = s.recv(65536)
-        except socket.timeout:
+        except TimeoutError:
             break
         if not c:
             break
