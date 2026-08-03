@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # Integration smoke against a running olefied container (real oletools/olevba).
 # Usage: python tests/itest_image.py [host] [port]   (default 127.0.0.1 10050)
@@ -39,7 +38,8 @@ def check(name, cond, detail=""):
 def main():
     check("ping", req(b"PING\n\n").strip() == b"PONG")
 
-    body = open(TESTMSG, "rb").read()
+    with open(TESTMSG, "rb") as fh:
+        body = fh.read()
     scan = b"OLEFY/1.0\nMethod: oletools\nRspamd-ID: itest1\n\n" + body
     r = req(scan)
     check("real_olevba_scan", b"olevba" in r and b"MetaInformation" in r, r[:120])

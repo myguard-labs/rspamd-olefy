@@ -26,7 +26,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install ruff redis
+      # ruff is pinned: an unpinned install picks up newly-stabilised rules and
+      # turns a previously-green scheduled run red without any code change.
+      - run: pip install 'ruff==0.16.1' redis
       - name: ruff
         run: ruff check docker/olefyd.py tests/
       - name: dispatcher tests (stub worker, no oletools) + cache test (redis)
